@@ -1,0 +1,246 @@
+---
+name: Quick Grocery Kinetic
+colors:
+  surface: '#fcf9f8'
+  surface-dim: '#dcd9d9'
+  surface-bright: '#fcf9f8'
+  surface-container-lowest: '#ffffff'
+  surface-container-low: '#f6f3f2'
+  surface-container: '#f0eded'
+  surface-container-high: '#eae7e7'
+  surface-container-highest: '#e5e2e1'
+  on-surface: '#1b1b1b'
+  on-surface-variant: '#4e4634'
+  inverse-surface: '#313030'
+  inverse-on-surface: '#f3f0ef'
+  outline: '#7f7662'
+  outline-variant: '#d1c5ae'
+  surface-tint: '#755b00'
+  primary: '#755b00'
+  on-primary: '#ffffff'
+  primary-container: '#f8cb46'
+  on-primary-container: '#6e5600'
+  inverse-primary: '#edc13d'
+  secondary: '#006e16'
+  on-secondary: '#ffffff'
+  secondary-container: '#8ffb87'
+  on-secondary-container: '#007518'
+  tertiary: '#bb162c'
+  on-tertiary: '#ffffff'
+  tertiary-container: '#ffc1bf'
+  on-tertiary-container: '#b20c27'
+  error: '#ba1a1a'
+  on-error: '#ffffff'
+  error-container: '#ffdad6'
+  on-error-container: '#93000a'
+  primary-fixed: '#ffe08f'
+  primary-fixed-dim: '#edc13d'
+  on-primary-fixed: '#241a00'
+  on-primary-fixed-variant: '#584400'
+  secondary-fixed: '#8ffb87'
+  secondary-fixed-dim: '#74dd6e'
+  on-secondary-fixed: '#002203'
+  on-secondary-fixed-variant: '#00530e'
+  tertiary-fixed: '#ffdad8'
+  tertiary-fixed-dim: '#ffb3b1'
+  on-tertiary-fixed: '#410007'
+  on-tertiary-fixed-variant: '#92001c'
+  background: '#fcf9f8'
+  on-background: '#1b1b1b'
+  surface-variant: '#e5e2e1'
+typography:
+  headline-xl:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 32px
+    fontWeight: '800'
+    lineHeight: 40px
+    letterSpacing: -0.02em
+  headline-lg:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 24px
+    fontWeight: '700'
+    lineHeight: 32px
+    letterSpacing: -0.015em
+  headline-md:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 20px
+    fontWeight: '700'
+    lineHeight: 28px
+    letterSpacing: -0.01em
+  headline-sm:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 16px
+    fontWeight: '700'
+    lineHeight: 22px
+    letterSpacing: 0em
+  body-lg:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 15px
+    fontWeight: '500'
+    lineHeight: 22px
+    letterSpacing: -0.005em
+  body-md:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 13px
+    fontWeight: '400'
+    lineHeight: 18px
+    letterSpacing: 0em
+  body-sm:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 12px
+    fontWeight: '400'
+    lineHeight: 16px
+    letterSpacing: 0.01em
+  label-lg:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 14px
+    fontWeight: '700'
+    lineHeight: 18px
+    letterSpacing: 0.02em
+  label-md:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 12px
+    fontWeight: '600'
+    lineHeight: 16px
+    letterSpacing: 0.02em
+  label-sm:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 10px
+    fontWeight: '700'
+    lineHeight: 14px
+    letterSpacing: 0.04em
+  price-display:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 15px
+    fontWeight: '700'
+    lineHeight: 18px
+    letterSpacing: -0.01em
+  price-mrp:
+    fontFamily: Plus Jakarta Sans
+    fontSize: 12px
+    fontWeight: '400'
+    lineHeight: 16px
+    letterSpacing: 0em
+rounded:
+  sm: 0.25rem
+  DEFAULT: 0.5rem
+  md: 0.75rem
+  lg: 1rem
+  xl: 1.5rem
+  full: 9999px
+spacing:
+  gutter: 1rem
+  gutter-desktop: 1.25rem
+  margin: 1rem
+  margin-desktop: 2.5rem
+  space-2xs: 0.125rem
+  space-xs: 0.25rem
+  space-sm: 0.5rem
+  space-md: 0.75rem
+  space-lg: 1rem
+  space-xl: 1.5rem
+  space-2xl: 2rem
+  space-3xl: 3rem
+---
+
+## Brand & Style
+
+This design system targets high-speed urban consumers seeking instantaneous, frictionless grocery fulfilment. The core brand ethos marries urgency ("Delivery in 10-12 minutes") with reassurance (freshness, accuracy, reliability).
+
+The visual language draws from **Modern High-Utility Commerce**:
+- **Clarity over ornament:** Interfaces prioritize product scan-rate, explicit pricing hierarchy, and immediate cart interaction over decorative flourishes.
+- **Vibrant Optimism:** High-visibility gold/yellow tones signal energy, paired with an authoritative agricultural green that signifies freshness, speed, and validation.
+- **High-Density Information Architecture:** Desktop real estate maximizes inventory exposure through dense grid layouts, crisp badges, compact metadata, and instant inline quantity steppers.
+
+## Colors
+
+The palette balances energy, trust, and utilitarian contrast across light surfaces:
+
+- **Primary (`#F8CB46`)**: The signature quick-commerce yellow. Used for prominent brand headers, active search focal points, delivery highlight badges, and promotional hooks.
+- **Secondary (`#0C831F`)**: Crisp Kelly green. Anchors transactional confidence. Dedicated to action triggers (`ADD` buttons, active counters), in-stock signals, and ultra-fast delivery badges (`10 MINS`).
+- **Tertiary (`#E23744`)**: Direct discount crimson. Reserved strictly for savings callouts (`15% OFF`), price drops, and destructive validation states.
+- **Neutral Surface Palette**:
+  - Main background: `#FFFFFF` (pure white ensures product photography pops clean).
+  - Secondary background: `#F4F6FB` (cool, neutral slate-tinted canvas for category rails, promo trays, and card borders).
+  - Surface subtle: `#F8F9FA` for secondary inputs and inactive step backgrounds.
+- **Typography Neutrals**:
+  - `#1C1C1C` for high-legibility headings, titles, and active prices.
+  - `#666666` and `#828282` for weight denominations, pack variants, and strikethrough original MRPs.
+
+## Typography
+
+The design system standardizes on **Plus Jakarta Sans** for its high x-height, open apertures, and friendly geometric clarity under compressed item densities.
+
+- **Numerics & Pricing**: Currency symbols and price figures feature tabular numerals and bold weights (`700`/`800`) to guarantee scan-ability when scanning rows of FMCG goods.
+- **Product Titles**: Restricted to 2 lines maximum with `body-md` (13px, weight 500/600), truncating cleanly with an ellipsis to prevent asymmetric card heights.
+- **Unit & Weight Subtitles**: Rendered in `body-sm` with muted slate tones (`#666666`), keeping weight distinct from the product identity.
+- **Micro-Badges**: Set in `label-sm` (10px, weight 700 uppercase) to ensure high-contrast legibility even at 16px badge heights.
+
+## Layout & Spacing
+
+The layout is built for high density, minimizing scroll friction on wide desktop monitors:
+
+- **Desktop Canvas**: Max-width of `1280px` centered within a fluid wrapper. Outer margin `margin-desktop` (`2.5rem`) prevents edge bleed while maximizing shelf space.
+- **Category Navigation Rail**: Fixed-width 240px sidebar on left rail (or sticky horizontal sub-bar on slim viewports) pairing icons and labels.
+- **Product Shelves & Grid**: 6-column fluid grid on large desktop (`>= 1200px`), reflowing to 4-column on standard desktop (`>= 992px`). Column gutters remain compact (`1rem` to `1.25rem`) to maintain dense supermarket-shelf visual pacing.
+- **Component Padding Rhythm**:
+  - `space-xs` (4px) and `space-sm` (8px) govern metadata stacking (product name to weight to price).
+  - `space-md` (12px) structures card body internal padding.
+  - `space-lg` (16px) separates modules within the desktop header and category carousels.
+
+## Elevation & Depth
+
+Visual depth is achieved through **low-contrast borders combined with ultra-soft ambient contact shadows**:
+
+- **Level 0 (Flat Surface / Default Card)**: `border: 1px solid rgba(0, 0, 0, 0.08)`, no drop shadow. Clean, crisp containment that keeps grid lines visible without visual clutter.
+- **Level 1 (Card Hover / Floating Tags)**: `box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06)`, subtle border transition to `rgba(12, 131, 31, 0.2)` on card hover to indicate interactivity.
+- **Level 2 (Sticky Header & Category Bar)**: `box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04)`, `border-bottom: 1px solid #ECEFF1`. Anchors navigation without dimming content.
+- **Level 3 (Cart Drawer / Floating Delivery Modals)**: `box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12)` for high-priority transactional overlays.
+
+## Shapes
+
+The design system employs **Rounded (Level 2)** geometry:
+
+- **Base Radius (`8px` / `0.5rem`)**: Applied to product cards, promo containers, text input fields, and inline action buttons.
+- **Pill Radius (`9999px`)**: Reserved exclusively for fast-acting micro-elements:
+  - Delivery timer tags (`10 MINS`).
+  - Discount pills (`15% OFF`).
+  - Search suggestion chips (`milk`, `chips`, `bread`).
+  - Floating cart CTA trigger bar.
+- **Header Inputs & Dropdowns**: `8px` corner radius balances clean structure with consumer approachability.
+
+## Components
+
+### 1. Sticky Desktop Header
+- **Layout**: Height 76px, full-width white surface with subtle bottom border and Level 2 elevation.
+- **Logo**: Dual-color wordmark (Yellow & Forest Green).
+- **Location Selector**: Left-aligned adjacent to logo. Stacked layout:
+  - Top: Label `BBD: Delivery in 10 minutes` in bold `12px` font with a small lightning/clock glyph.
+  - Bottom: Current address line truncated with dropdown chevron; clicking triggers location-select modal.
+- **Omni-Search Bar**: Centered, flexible width (min 420px, max 640px). Background `#F4F6FB`, border `1px solid transparent`, focusing to `#0C831F`. Left search magnifying icon, dynamic animated placeholder cycling queries ("Search 'milk', 'chips', 'bread'").
+- **Header Actions**:
+  - Login / Profile trigger button: Ghost style, bold `14px`, neutral dark text.
+  - Cart Button: Solid `#0C831F` background, pill/rounded shape, containing a white shopping cart icon, count badge, and running total (e.g., `My Cart • 3 Items`).
+
+### 2. Category Side-Nav & Banner Rail
+- **Side Nav**: Clean, vertical list with 48px item heights. Active category highlighted with `#F4F6FB` background and a 3px left indicator border in `#0C831F`.
+- **Carousel Banners**: Aspect ratio 3.5:1. Vivid seasonal themes, high-contrast typography, rounded to `12px` with smooth auto-scroll indicators.
+
+### 3. High-Density Product Card
+- **Dimensions**: Fixed width flex item (approx. 180px–200px on desktop), minimum height 290px.
+- **Image Frame**: 140px square container with neutral `#FFFFFF` fill, 1:1 ratio.
+- **Badges**:
+  - Discount Badge: Absolute top-left corner (`#E23744` background, white text, `label-sm`, rounded-sm).
+  - Time Guarantee: Small pill above image or bottom-left of frame (`#F4F6FB` with `#0C831F` text: `⚡ 10 MINS`).
+- **Content Stacking**:
+  - Line 1: Weight / Volume selector or text (`500 g`, `1 L`) in muted gray `12px`.
+  - Line 2: Product Title (max 2 lines, truncated, `13px` bold dark `#1C1C1C`).
+  - Line 3: Pricing block (`price-display` in `#1C1C1C`, crossed-out MRP in `#828282`).
+- **CTA State**:
+  - Default: Outlined green button (`border: 1px solid #0C831F`, background `#F7FCF8`, text `#0C831F`, `ADD` in bold uppercase).
+  - Active (Added to Cart): Solid green stepper (`background: #0C831F`, white text `−` `count` `+`) maintaining identical footprint to eliminate layout shift.
+
+### 4. Interactive Chips & Filter Tags
+- Height 32px, rounded to `9999px`.
+- Inactive: `#F4F6FB` fill, `#1C1C1C` text, `border: 1px solid #E5E7EB`.
+- Active: `#0C831F` fill, pure white text, bold weight.

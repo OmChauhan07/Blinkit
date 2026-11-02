@@ -1,0 +1,6 @@
+{
+  "name": "Blinkit - 10 Minute Grocery Delivery",
+  "description": "Instant grocery delivery app featuring categories, 10-minute delivery, cart management, checkout, live order tracking, and customer account.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
