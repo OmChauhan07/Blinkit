@@ -9,6 +9,8 @@ import { AddEditAddressModal } from './components/AddEditAddressModal';
 import { ApplyCouponModal } from './components/ApplyCouponModal';
 import { CancelOrderModal } from './components/CancelOrderModal';
 import { RateOrderModal } from './components/RateOrderModal';
+import { MobileAppView } from './components/MobileAppView';
+import { ReactNativeExporterModal } from './components/ReactNativeExporterModal';
 
 import { StorefrontView } from './views/StorefrontView';
 import { CategoryView } from './views/CategoryView';
@@ -41,7 +43,9 @@ const AppContent: React.FC = () => {
     orders
   } = useStore();
 
+  const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
   const [isScreenNavOpen, setIsScreenNavOpen] = useState(false);
+  const [isCodeModalOpen, setIsCodeModalOpen] = useState(false);
 
   // Determine which page view to render based on URL route
   const renderCurrentView = () => {
@@ -88,7 +92,6 @@ const AppContent: React.FC = () => {
       return <AboutUsView />;
     }
 
-    // Default to storefront
     return <StorefrontView />;
   };
 
@@ -145,13 +148,67 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F4F6FB] text-[#1C1C1C]">
-      {/* Primary Sticky Header */}
-      <Header />
+      
+      {/* Top Experience Switcher Bar */}
+      <div className="bg-[#1C1C1C] text-white px-4 py-2 flex items-center justify-between text-[12px] z-50">
+        <div className="flex items-center gap-3">
+          <span className="font-extrabold text-[#F8CB46] hidden sm:inline">Blinkit App Experience:</span>
+          
+          <div className="flex items-center bg-white/10 p-1 rounded-xl">
+            <button
+              onClick={() => setViewMode('desktop')}
+              className={`px-3 py-1 rounded-lg font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                viewMode === 'desktop' ? 'bg-[#0C831F] text-white' : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <span>🖥️ Desktop Web</span>
+            </button>
+            <button
+              onClick={() => setViewMode('mobile')}
+              className={`px-3 py-1 rounded-lg font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                viewMode === 'mobile' ? 'bg-[#0C831F] text-white' : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <span>📱 Mobile App View</span>
+            </button>
+          </div>
+        </div>
 
-      {/* Main View Router */}
-      <main className="flex-1 w-full">
-        {renderCurrentView()}
-      </main>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => setIsCodeModalOpen(true)}
+            className="bg-[#F8CB46] hover:bg-[#edd068] text-slate-900 px-3 py-1 rounded-lg font-black text-[11px] flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
+          >
+            <span>⚡ React Native Code</span>
+          </button>
+        </div>
+      </div>
+
+      {viewMode === 'desktop' ? (
+        <>
+          {/* Primary Sticky Header */}
+          <Header />
+
+          {/* Main View Router */}
+          <main className="flex-1 w-full">
+            {renderCurrentView()}
+          </main>
+        </>
+      ) : (
+        /* Mobile App View with iPhone 16 Mockup Frame */
+        <div className="flex-1 flex items-center justify-center py-6 sm:py-8 bg-slate-900/90 px-2 sm:px-4">
+          <div className="w-full max-w-[390px] h-[844px] bg-black rounded-[52px] p-3 shadow-[0_24px_64px_rgba(0,0,0,0.6)] border-[4px] border-slate-700 relative overflow-hidden flex flex-col">
+            
+            {/* Screen Inner Viewport */}
+            <div className="w-full h-full bg-[#F4F6FB] rounded-[42px] overflow-hidden flex flex-col relative">
+              <MobileAppView />
+
+              {/* Home Bar Indicator */}
+              <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-32 h-1 bg-black/40 rounded-full pointer-events-none" />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Overlays & Modals */}
       <CartDrawer />
@@ -162,8 +219,9 @@ const AppContent: React.FC = () => {
       <ApplyCouponModal />
       <CancelOrderModal />
       <RateOrderModal />
+      <ReactNativeExporterModal isOpen={isCodeModalOpen} onClose={() => setIsCodeModalOpen(false)} />
 
-      {/* Interactive Screen Navigator Floater for instant preview of all 23+ screens */}
+      {/* Interactive Screen Navigator Floater for instant preview of all 25 screens */}
       <div className="fixed bottom-4 right-4 z-40">
         {!isScreenNavOpen ? (
           <button
@@ -172,7 +230,7 @@ const AppContent: React.FC = () => {
             title="Jump to any screen or modal"
           >
             <span className="material-symbols-outlined text-[18px]">layers</span>
-            <span>All 23+ Screens Navigator</span>
+            <span>All 25+ Screens Navigator</span>
           </button>
         ) : (
           <div className="bg-white rounded-2xl shadow-2xl border border-slate-300 w-[320px] sm:w-[360px] max-h-[85vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-150">
