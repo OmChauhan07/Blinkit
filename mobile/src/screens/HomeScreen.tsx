@@ -3,18 +3,39 @@ import {
   View,
   Text,
   ScrollView,
-  TextInput,
   TouchableOpacity,
   Image,
   StyleSheet,
-  SafeAreaView
+  Platform,
+  StatusBar as RNStatusBar
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  Zap,
+  Search,
+  Mic,
+  ArrowRight,
+  ChevronRight,
+  ChevronDown,
+  User
+} from 'lucide-react-native';
+
 import { useStore } from '../context/StoreContext';
 import { CATEGORIES, PRODUCTS } from '../data/mockData';
 import { ProductCard } from '../components/ProductCard';
 
 export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
-  const { selectedAddress, cart, grandTotal } = useStore();
+  const insets = useSafeAreaInsets();
+  const {
+    selectedAddress,
+    cart,
+    grandTotal,
+    user,
+    setIsLocationModalOpen,
+    setIsLoginModalOpen,
+    setIsCartDrawerOpen
+  } = useStore();
 
   const dairyProducts = PRODUCTS.filter((p) => p.category === 'dairy-bread-eggs');
   const munchiesProducts = PRODUCTS.filter((p) => p.category === 'munchies');
@@ -22,47 +43,69 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
 
   const totalCartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
+  // Status bar inset padding to prevent overlapping network/carrier/battery info bar
+  const androidBar = Platform.OS === 'android' ? (RNStatusBar.currentHeight || 24) : 0;
+  const headerTopPadding = Math.max(insets.top, androidBar) + 8;
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <StatusBar style="dark" />
+
       {/* Top Mobile Header */}
-      <View style={styles.header}>
-        <View style={styles.headerTop}>
-          <View style={styles.brandContainer}>
-            <Text style={styles.brandBlink}>blink</Text>
-            <Text style={styles.brandIt}>it</Text>
+      <View style={[styles.header, { paddingTop: headerTopPadding }]}>
+        <View style={styles.headerInner}>
+          <View style={styles.headerTop}>
+            <View style={styles.brandContainer}>
+              <Text style={styles.brandBlink}>blink</Text>
+              <Text style={styles.brandIt}>it</Text>
+            </View>
+
+            <TouchableOpacity
+              style={styles.locationSelector}
+              onPress={() => setIsLocationModalOpen(true)}
+              activeOpacity={0.8}
+              accessible={true}
+              accessibilityLabel="Select delivery location"
+            >
+              <View style={styles.etaRow}>
+                <Zap size={12} color="#F8CB46" fill="#F8CB46" />
+                <Text style={styles.etaText}>10 MINUTES</Text>
+              </View>
+              <View style={styles.addressRow}>
+                <Text numberOfLines={1} style={styles.addressText}>
+                  {selectedAddress.houseNo || selectedAddress.apartmentRoad || 'Deliver to'}, {selectedAddress.city}
+                </Text>
+                <ChevronDown size={13} color="#666666" style={{ marginLeft: 3 }} />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.profileButton}
+              onPress={() => (user.isLoggedIn ? navigation.navigate('Profile') : setIsLoginModalOpen(true))}
+              accessible={true}
+              accessibilityLabel="User profile"
+            >
+              {user.isLoggedIn && user.name ? (
+                <Text style={styles.profileText}>{user.name[0].toUpperCase()}</Text>
+              ) : (
+                <User size={16} color="#1C1C1C" />
+              )}
+            </TouchableOpacity>
           </View>
 
+          {/* Search Bar */}
           <TouchableOpacity
-            style={styles.locationSelector}
-            onPress={() => navigation.navigate('LocationSheet')}
+            activeOpacity={0.9}
+            onPress={() => navigation.navigate('SearchTab')}
+            style={styles.searchBar}
+            accessible={true}
+            accessibilityLabel="Search products"
           >
-            <View style={styles.etaRow}>
-              <Text style={styles.etaLightning}>⚡</Text>
-              <Text style={styles.etaText}>10 MINUTES</Text>
-            </View>
-            <Text numberOfLines={1} style={styles.addressText}>
-              {selectedAddress.houseNo}, {selectedAddress.city} ▼
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.profileButton}
-            onPress={() => navigation.navigate('Profile')}
-          >
-            <Text style={styles.profileText}>O</Text>
+            <Search size={17} color="#0C831F" style={{ marginRight: 8 }} />
+            <Text style={styles.searchPlaceholder}>Search "milk", "chips", "curd"...</Text>
+            <Mic size={17} color="#0C831F" />
           </TouchableOpacity>
         </View>
-
-        {/* Search Bar */}
-        <TouchableOpacity
-          activeOpacity={0.9}
-          onPress={() => navigation.navigate('Search')}
-          style={styles.searchBar}
-        >
-          <Text style={styles.searchIcon}>🔍</Text>
-          <Text style={styles.searchPlaceholder}>Search "milk", "chips", "curd"...</Text>
-          <Text style={styles.micIcon}>🎙️</Text>
-        </TouchableOpacity>
       </View>
 
       {/* Scrollable Content */}
@@ -70,7 +113,8 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
         {/* Promotional Campaign Banner */}
         <View style={styles.bannerContainer}>
           <View style={styles.bannerBadge}>
-            <Text style={styles.bannerBadgeText}>⚡ 10 MINUTE DELIVERY</Text>
+            <Zap size={10} color="#0C831F" fill="#0C831F" />
+            <Text style={styles.bannerBadgeText}>10 MINUTE DELIVERY</Text>
           </View>
           <Text style={styles.bannerTitle}>Pharmacy & Daily Groceries at your Doorstep</Text>
           <Text style={styles.bannerSubtitle}>Fresh fruits, farm dairy & snacks in 10-12 mins</Text>
@@ -78,15 +122,20 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             style={styles.bannerCta}
             onPress={() => navigation.navigate('Category', { slug: 'dairy-bread-eggs' })}
           >
-            <Text style={styles.bannerCtaText}>Shop Now →</Text>
+            <Text style={styles.bannerCtaText}>Shop Now</Text>
+            <ArrowRight size={13} color="#FFFFFF" style={{ marginLeft: 4 }} />
           </TouchableOpacity>
         </View>
 
         {/* Categories Horizontal Grid */}
         <View style={styles.sectionHeader}>
           <Text style={styles.sectionTitle}>Explore Categories</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('CategoriesTab')}>
-            <Text style={styles.seeAllText}>See all →</Text>
+          <TouchableOpacity
+            style={styles.seeAllButton}
+            onPress={() => navigation.navigate('CategoriesTab')}
+          >
+            <Text style={styles.seeAllText}>See all</Text>
+            <ChevronRight size={14} color="#0C831F" />
           </TouchableOpacity>
         </View>
 
@@ -111,8 +160,12 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             <Text style={styles.shelfTitle}>Dairy, Bread & Eggs</Text>
             <Text style={styles.shelfSubtitle}>Fresh milk, butter & breakfast items</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Category', { slug: 'dairy-bread-eggs' })}>
+          <TouchableOpacity
+            style={styles.seeAllButton}
+            onPress={() => navigation.navigate('Category', { slug: 'dairy-bread-eggs' })}
+          >
             <Text style={styles.seeAllText}>See all</Text>
+            <ChevronRight size={14} color="#0C831F" />
           </TouchableOpacity>
         </View>
 
@@ -132,8 +185,12 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             <Text style={styles.shelfTitle}>Munchies & Snacks</Text>
             <Text style={styles.shelfSubtitle}>Crispy chips, namkeen & late night cravings</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Category', { slug: 'munchies' })}>
+          <TouchableOpacity
+            style={styles.seeAllButton}
+            onPress={() => navigation.navigate('Category', { slug: 'munchies' })}
+          >
             <Text style={styles.seeAllText}>See all</Text>
+            <ChevronRight size={14} color="#0C831F" />
           </TouchableOpacity>
         </View>
 
@@ -153,8 +210,12 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
             <Text style={styles.shelfTitle}>Cold Drinks & Juices</Text>
             <Text style={styles.shelfSubtitle}>Chilled sodas, fruit juices & thirst quenchers</Text>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Category', { slug: 'cold-drinks-juices' })}>
+          <TouchableOpacity
+            style={styles.seeAllButton}
+            onPress={() => navigation.navigate('Category', { slug: 'cold-drinks-juices' })}
+          >
             <Text style={styles.seeAllText}>See all</Text>
+            <ChevronRight size={14} color="#0C831F" />
           </TouchableOpacity>
         </View>
 
@@ -177,7 +238,7 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
           <TouchableOpacity
             style={styles.floatingCart}
             activeOpacity={0.9}
-            onPress={() => navigation.navigate('Cart')}
+            onPress={() => setIsCartDrawerOpen(true)}
           >
             <View>
               <Text style={styles.cartItemsCount}>
@@ -186,12 +247,13 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
               <Text style={styles.cartTotalText}>₹{grandTotal} (plus taxes)</Text>
             </View>
             <View style={styles.viewCartButton}>
-              <Text style={styles.viewCartText}>View Cart →</Text>
+              <Text style={styles.viewCartText}>View Cart</Text>
+              <ArrowRight size={14} color="#FFFFFF" style={{ marginLeft: 4 }} />
             </View>
           </TouchableOpacity>
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -203,10 +265,14 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 16,
-    paddingTop: 8,
     paddingBottom: 12,
     borderBottomWidth: 1,
     borderBottomColor: '#ECEFF1'
+  },
+  headerInner: {
+    maxWidth: 960,
+    width: '100%',
+    alignSelf: 'center'
   },
   headerTop: {
     flexDirection: 'row',
@@ -235,26 +301,28 @@ const styles = StyleSheet.create({
   etaRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 2
-  },
-  etaLightning: {
-    fontSize: 12,
-    color: '#F8CB46'
+    gap: 3
   },
   etaText: {
     fontSize: 11,
     fontWeight: '900',
     color: '#1C1C1C'
   },
+  addressRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 1
+  },
   addressText: {
     fontSize: 11,
     color: '#666666',
-    fontWeight: '500'
+    fontWeight: '500',
+    maxWidth: 180
   },
   profileButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
     backgroundColor: '#F8CB46',
     alignItems: 'center',
     justifyContent: 'center'
@@ -274,30 +342,29 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ECEFF1'
   },
-  searchIcon: {
-    fontSize: 16,
-    marginRight: 8
-  },
   searchPlaceholder: {
     flex: 1,
     fontSize: 13,
     color: '#828282'
   },
-  micIcon: {
-    fontSize: 16
-  },
   scrollContent: {
-    padding: 16
+    padding: 16,
+    maxWidth: 960,
+    width: '100%',
+    alignSelf: 'center'
   },
   bannerContainer: {
     backgroundColor: '#F8CB46',
-    borderRadius: 16,
+    borderRadius: 14,
     padding: 16,
-    marginBottom: 20
+    marginBottom: 18
   },
   bannerBadge: {
     backgroundColor: '#FFFFFF',
     alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
@@ -309,7 +376,7 @@ const styles = StyleSheet.create({
     color: '#0C831F'
   },
   bannerTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '900',
     color: '#1C1C1C',
     lineHeight: 22,
@@ -323,6 +390,8 @@ const styles = StyleSheet.create({
   bannerCta: {
     backgroundColor: '#0C831F',
     alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 8
@@ -343,13 +412,18 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: '#1C1C1C'
   },
+  seeAllButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2
+  },
   seeAllText: {
     fontSize: 12,
     fontWeight: '700',
     color: '#0C831F'
   },
   categoriesScroll: {
-    marginBottom: 20
+    marginBottom: 18
   },
   categoryItem: {
     alignItems: 'center',
@@ -357,8 +431,8 @@ const styles = StyleSheet.create({
     width: 68
   },
   categoryIconCircle: {
-    width: 60,
-    height: 60,
+    width: 58,
+    height: 58,
     borderRadius: 16,
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
@@ -405,6 +479,9 @@ const styles = StyleSheet.create({
     bottom: 12,
     left: 16,
     right: 16,
+    maxWidth: 540,
+    width: '100%',
+    alignSelf: 'center',
     zIndex: 50
   },
   floatingCart: {

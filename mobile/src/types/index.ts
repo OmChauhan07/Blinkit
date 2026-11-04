@@ -84,3 +84,10 @@ export interface Category {
   itemCount: number;
   subcategories: string[];
 }
+
+export interface FAQItem {
+  id: string;
+  category: string;
+  question: string;
+  answer: string;
+}
