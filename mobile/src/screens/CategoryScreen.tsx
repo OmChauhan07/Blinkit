@@ -20,6 +20,7 @@ import {
 
 import { CATEGORIES, PRODUCTS } from '../data/mockData';
 import { ProductCard } from '../components/ProductCard';
+import { FloatingCartBar } from '../components/FloatingCartBar';
 import { useStore } from '../context/StoreContext';
 
 export const CategoryScreen: React.FC<{ route: any; navigation: any }> = ({ route, navigation }) => {
@@ -199,8 +200,11 @@ export const CategoryScreen: React.FC<{ route: any; navigation: any }> = ({ rout
           </View>
         )}
 
-        <View style={{ height: 40 }} />
+        <View style={{ height: 90 }} />
       </ScrollView>
+
+      {/* Floating Bottom Cart Checkout Bar */}
+      <FloatingCartBar bottomOffset={12} />
     </View>
   );
 };

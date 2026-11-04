@@ -24,6 +24,7 @@ import {
 import { useStore } from '../context/StoreContext';
 import { CATEGORIES, PRODUCTS } from '../data/mockData';
 import { ProductCard } from '../components/ProductCard';
+import { FloatingCartBar } from '../components/FloatingCartBar';
 
 export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const insets = useSafeAreaInsets();
@@ -233,26 +234,7 @@ export const HomeScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
       </ScrollView>
 
       {/* Floating Bottom Cart Checkout Bar */}
-      {totalCartCount > 0 && (
-        <View style={styles.floatingCartContainer}>
-          <TouchableOpacity
-            style={styles.floatingCart}
-            activeOpacity={0.9}
-            onPress={() => setIsCartDrawerOpen(true)}
-          >
-            <View>
-              <Text style={styles.cartItemsCount}>
-                {totalCartCount} {totalCartCount === 1 ? 'ITEM' : 'ITEMS'}
-              </Text>
-              <Text style={styles.cartTotalText}>₹{grandTotal} (plus taxes)</Text>
-            </View>
-            <View style={styles.viewCartButton}>
-              <Text style={styles.viewCartText}>View Cart</Text>
-              <ArrowRight size={14} color="#FFFFFF" style={{ marginLeft: 4 }} />
-            </View>
-          </TouchableOpacity>
-        </View>
-      )}
+      <FloatingCartBar bottomOffset={12} />
     </View>
   );
 };
@@ -473,50 +455,5 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginBottom: 16
-  },
-  floatingCartContainer: {
-    position: 'absolute',
-    bottom: 12,
-    left: 16,
-    right: 16,
-    maxWidth: 540,
-    width: '100%',
-    alignSelf: 'center',
-    zIndex: 50
-  },
-  floatingCart: {
-    backgroundColor: '#0C831F',
-    borderRadius: 14,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    shadowColor: '#0C831F',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 10,
-    elevation: 6
-  },
-  cartItemsCount: {
-    color: '#FFFFFF',
-    fontSize: 11,
-    fontWeight: '700',
-    opacity: 0.9
-  },
-  cartTotalText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '900'
-  },
-  viewCartButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4
-  },
-  viewCartText: {
-    color: '#FFFFFF',
-    fontSize: 13,
-    fontWeight: '800'
   }
 });

@@ -22,6 +22,7 @@ import {
 
 import { PRODUCTS } from '../data/mockData';
 import { ProductCard } from '../components/ProductCard';
+import { FloatingCartBar } from '../components/FloatingCartBar';
 import { useStore } from '../context/StoreContext';
 
 const RECENT_SEARCHES = ['Amul Milk', 'Harvest Bread', 'Farm Eggs', 'Lays Chips', 'Coca Cola', 'Cadbury', 'Butter', 'Curd'];
@@ -203,7 +204,11 @@ export const SearchResultsScreen: React.FC<{ navigation: any }> = ({ navigation 
             ))}
           </View>
         )}
+        <View style={{ height: 90 }} />
       </ScrollView>
+
+      {/* Floating Bottom Cart Checkout Bar */}
+      <FloatingCartBar bottomOffset={12} />
     </View>
   );
 };

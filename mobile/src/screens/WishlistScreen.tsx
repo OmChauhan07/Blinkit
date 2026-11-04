@@ -15,6 +15,7 @@ import { ArrowLeft, Heart } from 'lucide-react-native';
 import { useStore } from '../context/StoreContext';
 import { PRODUCTS } from '../data/mockData';
 import { ProductCard } from '../components/ProductCard';
+import { FloatingCartBar } from '../components/FloatingCartBar';
 
 export const WishlistScreen: React.FC<{ navigation: any }> = ({ navigation }) => {
   const insets = useSafeAreaInsets();
@@ -70,7 +71,11 @@ export const WishlistScreen: React.FC<{ navigation: any }> = ({ navigation }) =>
             ))}
           </View>
         )}
+        <View style={{ height: 90 }} />
       </ScrollView>
+
+      {/* Floating Bottom Cart Checkout Bar */}
+      <FloatingCartBar bottomOffset={12} />
     </View>
   );
 };
